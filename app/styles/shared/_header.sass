@@ -1,0 +1,14 @@
+header
+  top: 0
+  z-index: $header-z
+  width: 100%
+  user-select: none
+  background: $white
+  .header-top
+    @extend %centered
+    height: $header-height
+    .logo
+      float: left
+      +hidpi-image("../images/logo.png", 74px, 62px)
+      margin-top: 10px 
+      margin-right: 20px

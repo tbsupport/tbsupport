@@ -1,0 +1,49 @@
+$item-width: 300px
+$slider-height: 300px
+$item-pad: 20px
+
+.section
+  width: 100%
+  display: block
+  &.white
+    color: $black
+    background: $white
+  &.green
+    color: $white
+    background: $green
+  &.cover
+    background-image: url(../images/cover.jpg)
+    background-size: cover
+    background-position: bottom
+
+  .content
+    @extend %centered
+
+    .slider
+      height: $slider-height
+      display: block
+      overflow: hidden
+      position: relative
+      .item
+        +font($font-size-base, $black)
+        background: transparentize($white,.1)
+        height: ($slider-height - 2*$item-pad)
+        width: $item-width
+        padding: $item-pad
+        position: absolute
+        transition: top 200ms
+        .title
+          text-align: center
+          width: 100%
+          +font($font-size-big, $black)
+          padding-bottom: 10px
+          margin: 10px 0
+          border-bottom: 2px solid $green
+        &.is-hidden
+          top: 300px
+        .player
+          position: absolute
+          left: ($item-width + 2*$item-pad+100)
+          top: $item-pad
+          bottom: $item-pad
+          width: ((9/5)* ($slider-height - 2*$item-pad))

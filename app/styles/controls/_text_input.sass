@@ -1,0 +1,21 @@
+.text-input-wrap
+  background: white
+  border-radius: 2px
+  border: 1px solid $grey-line
+  height: 30px !important
+  display: inline-block
+  position: relative
+  .text-input
+    +font($font-size-base,$black)
+    user-select: text
+    padding: 0 10px
+    margin: 0
+    background: white
+    height: 30px
+    border: none
+    transition: box-shadow 300ms
+    &:focus
+      box-shadow: 0 0 2px 2px $grey-line
+    &::-ms-clear
+      width: 0
+      height: 0

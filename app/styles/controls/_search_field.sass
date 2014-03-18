@@ -1,0 +1,21 @@
+.search-field
+  @extend .text-input-wrap
+  z-index: $second
+  .text-input
+    padding: 0 $search-left-pad 0 $search-right-pad
+    +hidpi-image("../images/icons/search-icon.png", 20px, 20px) 
+  .fa
+    display: none
+    font-size: $font-size-base
+    position: absolute
+    right: 10px
+    line-height: 30px
+    color: $grey-text
+    cursor: pointer
+    &:hover
+      color: lighten($grey-text,10%)
+    &:active
+      color: darken($grey-text,10%)
+  &.is-active
+    .fa
+      display: inline-block
