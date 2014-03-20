@@ -32,6 +32,9 @@ exports.config =
     jade:
       options:
         pretty: yes
+      locals:
+        site:
+          baseurl: ''
     autoprefixer:
       browsers: ["last 1 version", "> 1%", "ie 8"]
     static_jade:

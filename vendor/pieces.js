@@ -873,20 +873,32 @@
     if (host == null) {
       host = null;
     }
-    matches = callstr.match(/@([\w\d_]+)\.([\w\d_\.]+)(?:\(([@\w\d\.\(\),]+)\))?/);
+    matches = callstr.match(/@([\w\d_]+)(?:\.([\w\d_\.]+)(?:\(([@\w\d\.\(\),]+)\))?)?/);
     target = matches[1] === 'this' ? host : matches[1];
-    return curry(pi.call, [
-      target, matches[2], (matches[3] ? (function() {
-        var _i, _len, _ref, _results;
-        _ref = matches[3].split(",");
-        _results = [];
-        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-          arg = _ref[_i];
-          _results.push(pi.prepare_arg(arg, host));
-        }
-        return _results;
-      })() : [])
-    ]);
+    if (matches[2]) {
+      return curry(pi.call, [
+        target, matches[2], (matches[3] ? (function() {
+          var _i, _len, _ref, _results;
+          _ref = matches[3].split(",");
+          _results = [];
+          for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+            arg = _ref[_i];
+            _results.push(pi.prepare_arg(arg, host));
+          }
+          return _results;
+        })() : [])
+      ]);
+    } else {
+      if (typeof target === 'object') {
+        return function() {
+          return target;
+        };
+      } else {
+        return function() {
+          return $("@" + target).pi();
+        };
+      }
+    }
   };
   pi.event = new pi.EventDispatcher();
   $.extend($.fn, {
@@ -907,6 +919,68 @@
       }
     });
   });
+})(this);
+;var __hasProp = {}.hasOwnProperty,
+  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+
+(function(context) {
+  "use strict";
+  var $, pi, utils, _ref;
+  $ = context.jQuery;
+  pi = context.pi = context.pi || {};
+  utils = pi.utils;
+  return pi.TextInput = (function(_super) {
+    __extends(TextInput, _super);
+
+    function TextInput() {
+      _ref = TextInput.__super__.constructor.apply(this, arguments);
+      return _ref;
+    }
+
+    TextInput.prototype.initialize = function() {
+      this.input = this.nod.get(0).nodeName.toLowerCase() === 'input' ? this.nod : this.nod.find('input');
+      this.editable = true;
+      if (this.options.readonly || this.nod.hasClass('is-readonly')) {
+        this.make_readonly();
+      }
+      return TextInput.__super__.initialize.apply(this, arguments);
+    };
+
+    TextInput.prototype.make_editable = function() {
+      if (!this.editable) {
+        this.input.get(0).removeAttribute('readonly');
+        this.nod.removeClass('is-readonly');
+        this.editable = true;
+        this.changed('editable');
+      }
+    };
+
+    TextInput.prototype.make_readonly = function() {
+      if (this.editable) {
+        this.input.get(0).setAttribute('readonly', 'readonly');
+        this.nod.addClass('is-readonly');
+        this.editable = false;
+        this.changed('editable');
+      }
+    };
+
+    TextInput.prototype.value = function(val) {
+      if (val == null) {
+        val = null;
+      }
+      if (val != null) {
+        this.input.val(val);
+      }
+      return this.input.val();
+    };
+
+    TextInput.prototype.clear = function() {
+      return this.input.val('');
+    };
+
+    return TextInput;
+
+  })(pi.Base);
 })(this);
 ;var __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
@@ -1187,6 +1261,78 @@
   })(pi.Base);
 })(this);
 ;var __hasProp = {}.hasOwnProperty,
+  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  __slice = [].slice;
+
+(function(context) {
+  "use strict";
+  var $, VERSION, pi, utils, _ref, _swf_count;
+  $ = context.jQuery;
+  pi = context.pi = context.pi || {};
+  utils = pi.utils;
+  _swf_count = 0;
+  VERSION = (pi.config.swf_version != null) || '11.0.0';
+  return pi.SwfPlayer = (function(_super) {
+    __extends(SwfPlayer, _super);
+
+    function SwfPlayer() {
+      _ref = SwfPlayer.__super__.constructor.apply(this, arguments);
+      return _ref;
+    }
+
+    SwfPlayer.prototype.initialize = function() {
+      var cont;
+      cont = document.createElement('div');
+      this.player_id = "swf_player_" + (++_swf_count);
+      cont.id = this.player_id;
+      this.nod.append(cont);
+      if ((this.options.url != null) && this.enabled) {
+        return this.load(this.options.url);
+      }
+    };
+
+    SwfPlayer.prototype.load = function(url, params) {
+      var key, val, _ref1;
+      if (params == null) {
+        params = {};
+      }
+      url || (url = this.options.url);
+      _ref1 = this.options;
+      for (key in _ref1) {
+        val = _ref1[key];
+        if (!params[key]) {
+          params[key] = val;
+        }
+      }
+      return swfobject.embedSWF(url, this.player_id, "100%", "100%", VERSION, "", params, {
+        allowScriptAccess: true,
+        wmode: 'transparent'
+      });
+    };
+
+    SwfPlayer.prototype.clear = function() {
+      return this.nod.empty();
+    };
+
+    SwfPlayer.prototype.as3_call = function() {
+      var args, method, obj, _ref1;
+      method = arguments[0], args = 2 <= arguments.length ? __slice.call(arguments, 1) : [];
+      obj = swfobject.getObjectById(this.player_id);
+      if (obj) {
+        return (_ref1 = obj[method]) != null ? _ref1.apply(obj, args) : void 0;
+      }
+    };
+
+    SwfPlayer.prototype.as3_event = function(e) {
+      utils.debug(e);
+      return this.trigger('as3_event', e);
+    };
+
+    return SwfPlayer;
+
+  })(pi.Base);
+})(this);
+;var __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
 (function(context) {
@@ -1195,58 +1341,56 @@
   $ = context.jQuery;
   pi = context.pi = context.pi || {};
   utils = pi.utils;
-  return pi.TextInput = (function(_super) {
-    __extends(TextInput, _super);
+  return pi.TextArea = (function(_super) {
+    __extends(TextArea, _super);
 
-    function TextInput() {
-      _ref = TextInput.__super__.constructor.apply(this, arguments);
+    function TextArea() {
+      _ref = TextArea.__super__.constructor.apply(this, arguments);
       return _ref;
     }
 
-    TextInput.prototype.initialize = function() {
-      this.input = this.nod.get(0).nodeName.toLowerCase() === 'input' ? this.nod : this.nod.find('input');
+    TextArea.prototype.initialize = function() {
+      this.input = this.nod.get(0).nodeName.toLowerCase() === 'textarea' ? this.nod : this.nod.find('textarea');
       this.editable = true;
-      if (this.options.readonly) {
-        make_readonly;
+      if (this.options.readonly || this.nod.hasClass('is-readonly')) {
+        this.make_readonly();
       }
-      return TextInput.__super__.initialize.apply(this, arguments);
-    };
-
-    TextInput.prototype.make_editable = function() {
-      if (!this.editable) {
-        this.input.get(0).removeAttribute('readonly');
-        this.nod.removeClass('is-readonly');
-        this.editable = true;
-        this.changed('editable');
+      pi.Base.prototype.initialize.apply(this);
+      if (this.options.autosize === true) {
+        return this.enable_autosize();
       }
     };
 
-    TextInput.prototype.make_readonly = function() {
-      if (this.editable) {
-        this.input.get(0).setAttribute('readonly', 'readonly');
-        this.nod.addClass('is-readonly');
-        this.editable = false;
-        this.changed('editable');
-      }
+    TextArea.prototype.autosizer = function() {
+      var _this = this;
+      return this._autosizer || (this._autosizer = function() {
+        return _this.input.css('height', _this.input.get(0).scrollHeight);
+      });
     };
 
-    TextInput.prototype.value = function(val) {
-      if (val == null) {
-        val = null;
+    TextArea.prototype.enable_autosize = function() {
+      if (this._autosizing) {
+        return;
       }
-      if (val != null) {
-        this.input.val(val);
-      }
-      return this.input.val();
+      this.input.on('change', this.autosizer());
+      this._autosizing = true;
+      return this.autosizer()();
     };
 
-    TextInput.prototype.clear = function() {
-      return this.input.val('');
+    TextArea.prototype.disable_autosize = function() {
+      if (!this._autosizing) {
+        return;
+      }
+      this.input.css({
+        height: ''
+      });
+      this.input.off('change', this.autosizer());
+      return this._autosizing = false;
     };
 
-    return TextInput;
+    return TextArea;
 
-  })(pi.Base);
+  })(pi.TextInput);
 })(this);
 ;(function(context) {
   "use strict";

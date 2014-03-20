@@ -1,0 +1,16 @@
+include ../_partials/dochead
+body
+  include ../_partials/header
+  
+  .main.pi(data-component="checker_controller", data-pi="checker")
+   .section
+    .content
+      h1.title.inline Проверка подключения
+      button.button.button-enter.pi(data-event-click="@checker.start") Начать
+
+
+
+    .swf-hidden-container
+      .swf-hidden.pi(data-component="rtmp_checker", data-pi="rtmp", data-option-host="rtmp://test2013.teachbase.ru:443/fmle", data-option-client="$('@rtmp').pi()", data-option-url="/flash/cc.swf")
+
+  include ../_partials/footer
