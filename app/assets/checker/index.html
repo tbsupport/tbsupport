@@ -2,10 +2,11 @@
 <html lang="ru">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>Просмотр трансляций</title>
+    <title>Teachbase Техническая поддержка</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"><!--[if IE 8]>
-    <script src="js/modernizr.js"></script><![endif]-->
+    <script src="/js/polyfills.js"></script>
+    <script src="/js/modernizr.js"></script><![endif]-->
     <link href="//fonts.googleapis.com/css?family=PT+Sans&amp;subset=latin,cyrillic" rel="stylesheet" media="all">
     <link rel="stylesheet" href="/css/app.css" media="all">
   </head>
@@ -13,16 +14,68 @@
 <body>
   <header>
     <div class="header-top"><a href="/">
-        <div class="logo inline"></div></a></div>
+        <div class="logo inline hdpi"></div></a>
+      <div class="description inline">
+        <p class="name">TeachBase</p>
+        <p>техническая поддержка</p>
+      </div>
+      <div class="contacts inline">
+        <p class="mail"><i class="fa fa-envelope"></i>support@teachbase.ru</p>
+        <p class="phone">+7 (495) 660-38-43</p>
+      </div>
+    </div>
   </header>
-  <div data-component="checker_controller" data-pi="checker" class="main pi">
+  <div class="main checker-page">
     <div class="section">
       <div class="content">
-        <h1 class="title inline">Проверка подключения</h1>
-        <button data-event-click="@checker.start" class="button button-enter pi">Начать</button>
+        <div class="header inline">
+          <h1 class="title inline">Проверка готовности к работе с системой видеоконференций</h1>
+          <div class="progress-wrapper">
+            <div data-component="progressbar" data-pi="progress" class="pi progressbar-line"></div>
+          </div>
+        </div>
+        <button data-event-click="@checker.start" data-pi="start_btn" class="button button-enter pi">Начать проверку</button>
+        <div data-component="checker_controller" data-pi="checker" data-event-start="@start_btn.disable()" data-event-finish="@start_btn.enable()" data-option-fp-version="11.0.0" data-option-java-version="1.7" class="checkers pi">
+          <div data-component="checker" data-option-type="fp_version" data-option-deps="" class="item pi">
+            <div class="heading"><span class="index">1.</span>Проверка версии Flash Player
+              <div class="status"><i class="fa fa-check-circle green passed"></i><i class="fa fa-times-circle red failed"></i><i class="fa fa-exclamation-circle orange warning"></i><i class="fa fa-clock-o grey loading"></i></div>
+            </div>
+            <div class="desc"></div>
+          </div>
+          <div data-component="checker" data-option-type="java_version" data-option-deps="" class="item pi">
+            <div class="heading"><span class="index">2.</span>Проверка версии Java
+              <div class="status"><i class="fa fa-check-circle green passed"></i><i class="fa fa-times-circle red failed"></i><i class="fa fa-exclamation-circle orange warning"></i><i class="fa fa-clock-o grey loading"></i></div>
+            </div>
+            <div class="desc"></div>
+          </div>
+          <div data-component="checker" data-option-type="rtmp_connection" data-option-deps="fp_version" class="item pi">
+            <div class="heading"><span class="index">3.</span>Проверка RTMP подключения
+              <div class="status"><i class="fa fa-check-circle green passed"></i><i class="fa fa-times-circle red failed"></i><i class="fa fa-exclamation-circle orange warning"></i><i class="fa fa-clock-o grey loading"></i></div>
+            </div>
+            <div class="desc"></div>
+          </div>
+          <div data-component="checker" data-option-type="rtmp_ping" data-option-deps="rtmp_connection" class="item pi">
+            <div class="heading"><span class="index">4.</span>Проверка пинга RTMP
+              <div class="status"><i class="fa fa-check-circle green passed"></i><i class="fa fa-times-circle red failed"></i><i class="fa fa-exclamation-circle orange warning"></i><i class="fa fa-clock-o grey loading"></i></div>
+            </div>
+            <div class="desc"></div>
+          </div>
+          <div data-component="checker" data-option-type="rtmp_input" data-option-deps="rtmp_connection" class="item pi">
+            <div class="heading"><span class="index">5.</span>Проверка входящей скорости
+              <div class="status"><i class="fa fa-check-circle green passed"></i><i class="fa fa-times-circle red failed"></i><i class="fa fa-exclamation-circle orange warning"></i><i class="fa fa-clock-o grey loading"></i></div>
+            </div>
+            <div class="desc"></div>
+          </div>
+          <div data-component="checker" data-option-type="rtmp_output" data-option-deps="rtmp_connection" class="item pi">
+            <div class="heading"><span class="index">6.</span>Проверка исходящей скорости
+              <div class="status"><i class="fa fa-check-circle green passed"></i><i class="fa fa-times-circle red failed"></i><i class="fa fa-exclamation-circle orange warning"></i><i class="fa fa-clock-o grey loading"></i></div>
+            </div>
+            <div class="desc"></div>
+          </div>
+        </div>
       </div>
       <div class="swf-hidden-container">
-        <div data-component="rtmp_checker" data-pi="rtmp" data-option-host="rtmp://test2013.teachbase.ru:443/fmle" data-option-client="$('@rtmp').pi()" data-option-url="/flash/cc.swf" class="swf-hidden pi"></div>
+        <div data-component="rtmp_checker" data-pi="rtmp" data-option-test-size="5" data-option-host="rtmp://test2013.teachbase.ru:443/fmle" data-option-client="$('@rtmp').pi()" data-option-url="/flash/cc.swf" class="swf-hidden pi"></div>
       </div>
     </div>
   </div>
@@ -30,6 +83,5 @@
   <script>window.jQuery || document.write(unescape('%3Cscript src="/js/jquery.js">%3C/script>'))</script>
   <script src="/js/vendor.js"></script>
   <script src="/js/app.js"></script>
-  <script src="/js/jwplayer.js"></script>
   <link rel="stylesheet" href="/css/font-awesome.min.css" media="all">
 </body>

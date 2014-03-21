@@ -1,16 +1,45 @@
+mixin checker_item(title,index,type,deps)
+  .item.pi(data-component="checker", data-option-type="#{type}", data-option-deps="#{deps}")
+    .heading
+      span.index #{index}.
+      =title
+      .status
+        i.fa.fa-check-circle.green.passed
+        i.fa.fa-times-circle.red.failed
+        i.fa.fa-exclamation-circle.orange.warning
+        i.fa.fa-clock-o.grey.loading
+    .desc
+
 include ../_partials/dochead
 body
   include ../_partials/header
-  
-  .main.pi(data-component="checker_controller", data-pi="checker")
+  .main.checker-page
    .section
     .content
-      h1.title.inline Проверка подключения
-      button.button.button-enter.pi(data-event-click="@checker.start") Начать
+      .header.inline
+        h1.title.inline Проверка готовности к работе с системой видеоконференций
+        .progress-wrapper
+          .pi.progressbar-line(data-component="progressbar",data-pi="progress")
 
+      button.button.button-enter.pi(data-event-click="@checker.start", data-pi="start_btn") Начать проверку
+
+      .checkers.pi(
+            data-component="checker_controller", 
+            data-pi="checker", 
+            data-event-start="@start_btn.disable()",
+            data-event-finish="@start_btn.enable()",
+            data-option-fp-version="11.0.0", 
+            data-option-java-version="1.7"
+        )
+        +checker_item("Проверка версии Flash Player", 1, "fp_version","")
+        +checker_item("Проверка версии Java", 2, "java_version","")
+        +checker_item("Проверка RTMP подключения", 3, "rtmp_connection","fp_version")
+        +checker_item("Проверка пинга RTMP", 4, "rtmp_ping","rtmp_connection")
+        +checker_item("Проверка входящей скорости", 5, "rtmp_input","rtmp_connection")
+        +checker_item("Проверка исходящей скорости", 6, "rtmp_output","rtmp_connection")
 
 
     .swf-hidden-container
-      .swf-hidden.pi(data-component="rtmp_checker", data-pi="rtmp", data-option-host="rtmp://test2013.teachbase.ru:443/fmle", data-option-client="$('@rtmp').pi()", data-option-url="/flash/cc.swf")
+      .swf-hidden.pi(data-component="rtmp_checker", data-pi="rtmp", data-option-test-size="5", data-option-host="#{checker.host}", data-option-client="$('@rtmp').pi()", data-option-url="/flash/cc.swf")
 
   include ../_partials/footer

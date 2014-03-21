@@ -5,12 +5,11 @@ body
   .main
    .section
     .content
-      h1.title.inline Просмотр трансляции
-      .text-input-wrap.inline.pi(data-component="text_input",data-pi="stream_id")
-        input.text-input.stream-name-field(type="text", placeholder="идентификатор трансляции")
-      button.button.button-enter.pi(data-event-click="@player.load(@stream_id.value())") Смотреть
+      h1.title.inline Разделы
+      nav
+        each item in nav
+          a.menu-link(href=item.path)= item.title
 
-    .player-wrap
-      .player.pi(data-component="hls_player", data-pi="player", data-option-host="http://var1.teachbase.ru/")
+
 
   include _partials/footer

@@ -1,0 +1,51 @@
+.checker-page
+  .header
+    position: relative
+    margin-bottom: 10px
+  .button-enter
+    margin-left: 20px
+
+.checkers
+  .item
+    opacity: .5
+    transition: opacity .5s linear
+    padding: 6px 0
+    .heading
+      +font($font-size-base,$black)
+      position: relative
+      .index
+        position: absolute
+        left: -26px
+        text-align: right
+        color: $grey
+      .status
+        display: inline-block
+        margin-left: 10px
+        .fa
+          display: none
+    .desc
+      +font($font-size-small, $grey)
+      margin-top: 6px
+    &.is-active
+      opacity: 1
+    &.is-loading
+      .status
+        .loading
+          display: block
+    &.is-failed
+      .status
+        .failed
+          display: block
+      .desc
+        color: $red
+    &.is-passed
+      .status
+        .passed
+          display: block
+    &.is-warning
+      .status
+        .warning
+          display: block
+      .desc
+        color: $orange
+

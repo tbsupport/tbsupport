@@ -28,9 +28,14 @@
   <div class="main">
     <div class="section">
       <div class="content">
-        <h1 class="title inline">Разделы</h1>
-        <nav><a href="/checker" class="menu-link">Проверка подключения к видеовстрече</a>
-        </nav>
+        <h1 class="title inline">Просмотр трансляции</h1>
+        <div data-component="text_input" data-pi="stream_id" class="text-input-wrap inline pi">
+          <input type="text" placeholder="идентификатор трансляции" class="text-input stream-name-field">
+        </div>
+        <button data-event-click="@player.load(@stream_id.value())" class="button button-enter pi">Смотреть</button>
+      </div>
+      <div class="player-wrap">
+        <div data-component="hls_player" data-pi="player" data-option-host="http://var1.teachbase.ru/" class="player pi"></div>
       </div>
     </div>
   </div>

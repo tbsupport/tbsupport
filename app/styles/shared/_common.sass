@@ -37,6 +37,24 @@ a
   display: inline-block
   position: relative
 
+.progress-wrapper
+  position: absolute
+  bottom: 0
+  right: 0
+  left: 0
+  height: $progress-height 
+  background: $grey
+
+.progressbar-line
+  position: absolute
+  top: 0
+  left: 0
+  width: 0
+  transition: all 500ms $easeOutCirc
+  background: $red
+  height: $progress-height
+  z-index: $heaven
+
 .main
   margin-top: 10px
   .stream-name-field
@@ -63,6 +81,8 @@ a
       top: 1px
       width: 1px
       height: 1px
+
+@import 'polyfills'
 
 @media only screen and (max-width: $main-width)
   .main

@@ -35,6 +35,12 @@ exports.config =
       locals:
         site:
           baseurl: ''
+        nav:
+          [
+            {path: "/checker", title: "Проверка подключения к видеовстрече"}
+          ]
+        checker:
+          host: "rtmp://test2013.teachbase.ru:443/fmle"
     autoprefixer:
       browsers: ["last 1 version", "> 1%", "ie 8"]
     static_jade:
