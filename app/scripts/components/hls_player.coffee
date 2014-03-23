@@ -24,7 +24,7 @@
         hls_startfromlowestlevel : false,
         hls_live_flushurlcache : true,
         primary: "flash"
-        flashplayer: "flash/jwplayer.flash.swf",
+        flashplayer: "/flash/jwplayer.flash.swf",
         wmode: "transparent",
         controlbar: "over",
         debug: 'none',
@@ -40,7 +40,7 @@
       @load(@options.url) if @options.url? 
 
     load: (url) ->
-      @setup_opts.playlist = [{file: @_host+url,provider:'flash/HLSProvider6.swf',type: 'hls'}]
+      @setup_opts.playlist = [{file: @_host+url,provider:'/flash/HLSProvider6.swf',type: 'hls'}]
       jwplayer(@player_id).setup(@setup_opts)
     
     play: ->
