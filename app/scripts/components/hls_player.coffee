@@ -23,8 +23,9 @@
         hls_maxbufferlength : 60,
         hls_startfromlowestlevel : false,
         hls_live_flushurlcache : true,
-        primary: "flash"
+        primary: "html5"
         flashplayer: "/flash/jwplayer.flash.swf",
+        html5player: "/js/jwplayer.html5.js",
         wmode: "transparent",
         controlbar: "over",
         debug: 'none',
