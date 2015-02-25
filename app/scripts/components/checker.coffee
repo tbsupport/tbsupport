@@ -307,7 +307,7 @@
               return reject(status: 0, message: "Данный браузер не поддерживается", version: installed)
 
             if bowser.version < 10
-              return(status: 2, message: "Данный браузер не поддерживает подробный сбор статистики", version: installed)
+              return reject(status: 2, message: "Данный браузер не поддерживает подробный сбор статистики", version: installed)
           else if (bowser.firefox && bowser.version < 10) || (bowser.chrome && bowser.version < 24) || (bowser.opera && bowser.version < 12) || (bowser.safari && bowser.version < 6)
             return reject(status: 0, message: "Данный браузер не поддерживается", version: installed)
           resolve(status: 1, message: "Установленная версия: #{installed}")
