@@ -13,7 +13,8 @@
   ],
 
   "dependencies": {
-    "font-awesome": "~4"
+    "font-awesome": "~4",
+    "bowser": "*"
   },
   "overrides": {
     "font-awesome": {

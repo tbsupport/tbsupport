@@ -1,0 +1,36 @@
+mixin checker_item(title,index,type,deps)
+  .item.pi(data-component="checker", data-option-type="#{type}", data-option-deps="#{deps}")
+    .heading
+      span.index #{index}.
+      =title
+      .status
+        i.fa.fa-check-circle.green.passed
+        i.fa.fa-times-circle.red.failed
+        i.fa.fa-exclamation-circle.orange.warning
+        i.fa.fa-clock-o.grey.loading
+    .desc
+
+include ../_partials/dochead
+body
+  include ../_partials/header
+  .main.checker-page
+   .section
+    .content
+      .header.inline
+        h1.title.inline Проверка требований к системе
+        .progress-wrapper
+          .pi.progressbar-line(data-component="progressbar",data-pi="progress")
+
+      button.button.button-enter.pi(data-event-click="@checker.start", data-pi="start_btn") Начать проверку
+
+      .checkers.pi(
+            data-component="checker_controller", 
+            data-pi="checker", 
+            data-option-ws="#{checker.ws_host}"
+            data-event-start="@start_btn.disable()",
+            data-event-finish="@start_btn.enable()"
+        )
+        +checker_item("Проверка браузера", 1, "browser_version","")
+        +checker_item("Проверка веб-сокетов", 2, "ws", "browser_version")
+  
+  include ../_partials/footer
