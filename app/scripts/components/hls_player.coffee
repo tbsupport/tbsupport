@@ -7,7 +7,7 @@
 
   _video_count = 0
 
-  videojs.options.flash.swf = "/flash/video-js.swf"
+  videojs.options.flash.swf = "/flash/video-js.swf?debug=true"
 
   class pi.HlsPlayer extends pi.Base
     initialize: ->
