@@ -333,28 +333,6 @@
       )
 
 
-    check_java_version: ->
-      new Promise(
-        (resolve, reject) =>
-          installed = deployJava.getJREs()
-          mes = "Установлена версия: #{installed.join('; ')}"
-          if deployJava.versionCheck("#{@options.java_version}+")
-            resolve(status: 1, message: mes, version: installed)
-          else
-            if installed.length
-              mes+="<br/>"
-            else
-              mes = ""
-
-
-            mes+="Для демонстрации рабочего стола необходимо установить Java RE версии #{@options.java_version}+ <a href='http://java.com/en/download/testjava.jsp' target='_blank'>установить</a>"
-            resolve({
-              status: 2, 
-              message: mes, 
-              version: installed
-              })
-      )
-
     check_rtmp_connection: ->
       if @rtmp._initialized
         @rtmp.check("connection")

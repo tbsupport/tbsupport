@@ -40,6 +40,7 @@
   },
   "scripts": {
      "start": "brunch watch --server",
+     "build": "brunch build -P",
      "install": "./node_modules/bower/bin/bower install"
   }
 }
