@@ -1,3 +1,3 @@
 $ ->
-  pi.log_level = 'debug'
+  pi.log_level = 'info'
   pi.piecify()

@@ -41,7 +41,7 @@ exports.config =
             {path: "/checker", title: "Проверка подключения к видеовстрече"}
           ]
         checker:
-          host: "rtmp://er201.teachbase.ru:443/fmle"
+          host: "rtmp://er203.teachbase.ru:443/tbcheck"
           ws_host: "inf1.teachbase.ru/ws/mpx"
     autoprefixer:
       browsers: ["last 1 version", "> 1%", "ie 8"]

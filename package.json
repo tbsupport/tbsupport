@@ -14,7 +14,6 @@
     "npm": "1.4.x"
   },
   "dependencies": {
-    "bower": "~1.2.0",
     "statik": ">= 1.1.0", 
     "brunch": "1.x",
 
@@ -40,7 +39,6 @@
   },
   "scripts": {
      "start": "brunch watch --server",
-     "build": "brunch build -P",
-     "install": "./node_modules/bower/bin/bower install"
+     "build": "brunch build -P"
   }
 }
