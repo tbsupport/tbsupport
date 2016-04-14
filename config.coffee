@@ -38,11 +38,13 @@ exports.config =
         nav:
           [
             {path: "/system", title: "Проверка системных требований"},
-            {path: "/checker", title: "Проверка подключения к видеовстрече"}
+            {path: "/checker", title: "Проверка подключения к видеовстрече"},
+            {path: "/qmaker", title: "Конвертация тестов в формат GIFT"}
           ]
         checker:
           host: "rtmp://er203.teachbase.ru:443/tbcheck"
           ws_host: "inf1.teachbase.ru/ws/mpx"
+        qmaker_url: "//ec2-54-171-119-219.eu-west-1.compute.amazonaws.com/new"
     autoprefixer:
       browsers: ["last 1 version", "> 1%", "ie 8"]
     static_jade:
