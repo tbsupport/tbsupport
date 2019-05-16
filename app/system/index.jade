@@ -18,19 +18,10 @@ body
     .content
       .header.inline
         h1.title.inline Проверка требований к системе
-        .progress-wrapper
-          .pi.progressbar-line(data-component="progressbar",data-pi="progress")
+        p
+          | Данная проверка уже неактуальна.
+        p
+          | Для корректной работы платформы необходим современный браузер и установленный Adobe Flash Player &nbsp;
+          a(href="https://helpx.adobe.com/ru/flash-player.html") по инструкции
 
-      button.button.button-enter.pi(data-event-click="@checker.start", data-pi="start_btn") Начать проверку
-
-      .checkers.pi(
-            data-component="checker_controller", 
-            data-pi="checker", 
-            data-option-ws="#{checker.ws_host}"
-            data-event-start="@start_btn.disable()",
-            data-event-finish="@start_btn.enable()"
-        )
-        +checker_item("Проверка браузера", 1, "browser_version","")
-        +checker_item("Проверка веб-сокетов", 2, "ws", "browser_version")
-  
   include ../_partials/footer
