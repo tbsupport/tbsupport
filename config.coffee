@@ -26,7 +26,7 @@ exports.config =
           'app/styles/helpers.css'
         ]
     templates:
-      joinTo: 
+      joinTo:
         'js/templates.js': /.+\.jade$/
   plugins:
     jade:
@@ -37,7 +37,6 @@ exports.config =
           baseurl: ''
         nav:
           [
-            {path: "/system", title: "Проверка системных требований"},
             {path: "/checker", title: "Проверка подключения к видеовстрече"},
             {path: "/qmaker", title: "Конвертация тестов в формат GIFT"},
             {path: "/cert", title: "Генерация сертификата"}
@@ -51,4 +50,4 @@ exports.config =
       browsers: ["last 1 version", "> 1%", "ie 8"]
     static_jade:
       extension: ".jade"
-      path:       [ /app/ ] 
+      path:       [ /app/ ]
