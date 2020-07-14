@@ -44,8 +44,8 @@ exports.config =
         checker:
           host: "rtmp://er203.teachbase.ru:443/tbcheck"
           ws_host: "inf1.teachbase.ru/ws/mpx"
-        qmaker_url: "http://qmaker.teachbase.ru/new"
-        cert_url: "http://cert.teachbase.ru"
+        qmaker_url: "https://qmaker.teachbase.ru/new"
+        cert_url: "https://cert.teachbase.ru"
     autoprefixer:
       browsers: ["last 1 version", "> 1%", "ie 8"]
     static_jade:
